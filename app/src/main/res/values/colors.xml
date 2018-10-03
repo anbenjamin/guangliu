@@ -25,4 +25,6 @@
     <color name="line_black">#e1e1e1</color>
     <color name="pressed">#d9d9d9</color>
     <color name="yinsi">#6e98b6</color>
+    <color name="transparent">#00000000</color>
+    <color name="translucent_white">#61FFFFFF</color>
 </resources>
