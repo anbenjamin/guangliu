@@ -15,9 +15,7 @@ public class AppInfo implements Comparable<AppInfo>{
     private long time = 0;
 
     public AppInfo(){}
-
     public AppInfo(String packageName){this.packageName = packageName;}
-
     public void setAppName(String appName){this.appName = appName;}
     public void setPackageName(String packageName){this.packageName = packageName;}
     public void setIcon(Drawable icon){this.icon = icon;}

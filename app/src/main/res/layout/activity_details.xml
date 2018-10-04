@@ -5,13 +5,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ThreeFragment">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_null"
+        android:backgroundTintMode="@color/line_gray"
+        app:rippleColor="@color/gray"
+        android:clickable="true"/>
+
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/detail_swip_refresh"
+        android:id="@+id/swip_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/detail_recycler_view"
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

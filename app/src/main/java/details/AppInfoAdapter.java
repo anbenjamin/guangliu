@@ -5,6 +5,7 @@ package details;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.List;
 
+import com.example.benjaminan.test2.DetailsActivity;
 import com.example.benjaminan.test2.R;
-
-
-/**
- * Created by BenjaminAn on 2018/9/23.
- */
 
 public class AppInfoAdapter extends RecyclerView.Adapter<AppInfoAdapter.ViewHolder> {
     private List<AppInfo> mAppList;
@@ -52,14 +49,7 @@ public class AppInfoAdapter extends RecyclerView.Adapter<AppInfoAdapter.ViewHold
             mContext = parent.getContext();
         View view = LayoutInflater.from(mContext).inflate(R.layout.app_item,parent,false);
         final ViewHolder holder = new ViewHolder(view);
-        holder.appView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                AppInfo temp = mAppList.get(position);
-                Toast.makeText(mContext,"you click the 《" + temp.getAppName() + "》", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         return holder;
     }
 

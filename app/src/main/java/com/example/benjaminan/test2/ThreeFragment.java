@@ -33,27 +33,20 @@ import butterknife.ButterKnife;
 
 import details.AppInfo;
 import details.AppInfoAdapter;
+import details.DetailInfo;
+import details.DetailInfoAdapter;
 
 import static android.content.Context.USAGE_STATS_SERVICE;
 
-
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-
-
 public class ThreeFragment extends Fragment {
-    @BindView(R.id.recycler_view)
+    @BindView(R.id.detail_recycler_view)
     RecyclerView mRecyclerview;
 
-    private AppInfoAdapter mAdapter;
+    private DetailInfoAdapter mAdapter;
 
     private SwipeRefreshLayout swipeRefresh;
 
-    private List<AppInfo> appList = new ArrayList<>();
-
-    private boolean sysFlag = false;
-
+    private List<DetailInfo> detailList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,26 +54,11 @@ public class ThreeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_three, container, false);
         ButterKnife.bind(this, view);
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(sysFlag){
-                    sysFlag = false;
-                    refreshApps();
-                    Toast.makeText(getActivity().getApplicationContext(),"已隐藏系统应用",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    sysFlag = true;
-                    refreshApps();
-                    Toast.makeText(getActivity().getApplicationContext(),"已显示系统应用",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        initDetails();
 
-        initApps();
+        //mRecyclerview = (RecyclerView) view.findViewById(R.id.detail_recycler_view);
 
-        mAdapter = new AppInfoAdapter(appList);
+        mAdapter = new DetailInfoAdapter(detailList);
         //设置布局管理器
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         //设置adapter
@@ -89,100 +67,41 @@ public class ThreeFragment extends Fragment {
         mRecyclerview.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         //mAdapter.setOnItemClickLitener(this);
 
-        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swip_refresh);
+        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.detail_swip_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() {refreshApps();}
+            public void onRefresh() {refreshDetails();}
         });
+
         return view;
     }
 
-    void initApps(){
-        Calendar beginCal = Calendar.getInstance();
-        beginCal.add(Calendar.HOUR_OF_DAY,-24);
-        Calendar endCal = Calendar.getInstance();
-        UsageStatsManager manager = (UsageStatsManager) getActivity().getApplicationContext().getSystemService(USAGE_STATS_SERVICE);
-        List<UsageStats> stats = manager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,beginCal.getTimeInMillis(),endCal.getTimeInMillis());
-
-        if(stats.size() == 0) {
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
-                try {
-                    startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
-                } catch (Exception e) {
-                    Toast.makeText(getActivity().getApplicationContext(), "无法开启允许查看使用情况的应用界面", Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }
-        }
-        else{
-            for(UsageStats usageStates :stats){
-                usageStates.getPackageName();
-                usageStates.getTotalTimeInForeground();
-            }
-            Context context = getActivity().getApplicationContext();
-            PackageManager pm = context.getPackageManager();
-            for( int i = 0 ; i < stats.size() ; i++){
-                AppInfo temp = new AppInfo(stats.get(i).getPackageName());
-                try{
-                    ApplicationInfo info = pm.getApplicationInfo(temp.getPackageName(),0);
-                    /**
-                     * 筛选出系统应用
-                     */
-                    if((info.flags & ApplicationInfo.FLAG_SYSTEM) > 0 && !sysFlag)
-                        continue;
-                    temp.setIcon(info.loadIcon(pm));
-                    temp.setAppName(info.loadLabel(pm).toString());
-                    temp.setTime(stats.get(i).getTotalTimeInForeground());
-                    appList.add(temp);
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            Collections.sort(appList);
+    void initDetails(){
+        Calendar calendar = Calendar.getInstance();
+        Context context = getActivity().getApplicationContext();
+        PackageManager pm = context.getPackageManager();
+        for( int i = 0 ; i < 5 ; i++){
+            DetailInfo temp = new DetailInfo();
+            calendar.add(Calendar.DATE,-1);
+            temp.setCalendar(calendar);
+            detailList.add(temp);
         }
     }
 
-    private void refreshApps(){
+    private void refreshDetails(){
         boolean flag = false;
-        Calendar beginCal = Calendar.getInstance();
-        beginCal.add(Calendar.HOUR_OF_DAY,-24);
-        Calendar endCal = Calendar.getInstance();
-        UsageStatsManager manager = (UsageStatsManager)getActivity().getApplicationContext().getSystemService(USAGE_STATS_SERVICE);
-        List<UsageStats> stats = manager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,beginCal.getTimeInMillis(),endCal.getTimeInMillis());
+        detailList.clear();
+        Calendar calendar = Calendar.getInstance();
+        Context context = getActivity().getApplicationContext();
+        PackageManager pm = context.getPackageManager();
+        for( int i = 0 ; i < 5 ; i++){
+            DetailInfo temp = new DetailInfo();
+            calendar.add(Calendar.DATE,-1);
+            temp.setCalendar(calendar);
+            detailList.add(temp);
 
-        if(stats.size() == 0) {
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
-                try {
-                    startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
-                } catch (Exception e) {
-                    Toast.makeText(getActivity().getApplicationContext(), "无法开启允许查看使用情况的应用界面", Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }
-        }
-        else{
-            for(UsageStats usageStates :stats){
-                usageStates.getPackageName();
-                usageStates.getTotalTimeInForeground();
-            }
-            Context context = getActivity().getApplicationContext();
-            PackageManager pm = context.getPackageManager();
-            appList.clear();
-            for( int i = 0 ; i < stats.size() ; i++){
-                AppInfo temp = new AppInfo(stats.get(i).getPackageName());
-                try{
-                    ApplicationInfo info = pm.getApplicationInfo(temp.getPackageName(),0);
-                    if((info.flags & ApplicationInfo.FLAG_SYSTEM) > 0 && !sysFlag)
-                        continue;
-                    temp.setIcon(info.loadIcon(pm));
-                    temp.setAppName(info.loadLabel(pm).toString());
-                    temp.setTime(stats.get(i).getTotalTimeInForeground());
-                    appList.add(temp);
-                    flag = true;
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            Collections.sort(appList);
+            flag = true;
         }
         if(flag)
             mAdapter.notifyDataSetChanged();
