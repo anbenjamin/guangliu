@@ -3,15 +3,10 @@ package com.example.benjaminan.test2;
 /**
  * Created by BenjaminAn on 2018/10/3.
  */
-import android.app.usage.UsageStats;
-import android.app.usage.UsageStatsManager;
+
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -25,18 +20,14 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import details.AppInfo;
-import details.AppInfoAdapter;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import details.DetailInfo;
 import details.DetailInfoAdapter;
-
-import static android.content.Context.USAGE_STATS_SERVICE;
 
 public class ThreeFragment extends Fragment {
     @BindView(R.id.detail_recycler_view)
@@ -53,6 +44,15 @@ public class ThreeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_three, container, false);
         ButterKnife.bind(this, view);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.share);
+        fab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+            String temp = "share test(AN).";
+            showShare(temp);
+            }
+        });
 
         initDetails();
 
@@ -106,6 +106,36 @@ public class ThreeFragment extends Fragment {
         if(flag)
             mAdapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
+    }
+
+    /**
+     * 将content 发送
+     * @param content
+     * */
+    private void showShare(String content) {
+        OnekeyShare oks = new OnekeyShare();
+//关闭sso授权
+        oks.disableSSOWhenAuthorize();
+
+// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
+        oks.setTitle("标题");
+// titleUrl是标题的网络链接，QQ和QQ空间等使用
+        oks.setTitleUrl("http://sharesdk.cn");
+// text是分享文本，所有平台都需要这个字段
+        oks.setText("分享内容"+content);
+// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+//oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+// url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl("http://sharesdk.cn");
+// comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("我是测试评论文本");
+// site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+// siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://sharesdk.cn");
+
+// 启动分享GUI
+        oks.show(getActivity());
     }
 }
 

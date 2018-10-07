@@ -9,7 +9,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#BDFCC9"
+        android:background="#33FFFFFF"
         android:fitsSystemWindows="true"
         android:orientation="horizontal">
 
@@ -31,8 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:orientation="horizontal"
-        android:background="#B0E0E6">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/detail_icon"
