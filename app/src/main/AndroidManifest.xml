@@ -33,7 +33,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".FindPswActivity" />
         <activity android:name=".SeniorWarningActivity" />
-        <activity android:name=".DetailsActivity"></activity>
+        <activity android:name=".DetailsActivity" />
 
         <!-- ShareSDK的activity -->
         <activity
@@ -70,6 +70,8 @@
             android:name="Mob-AppSecret"
             android:value="b8a857ed4b2e8e02a69e1d7f045a243e" />
 
+        <activity android:name=".FindPswCheckActivity" />
+        <activity android:name=".FindPswResetActivity"></activity>
     </application>
 
 </manifest>

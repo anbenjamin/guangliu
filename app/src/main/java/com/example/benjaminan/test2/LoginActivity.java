@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         tv_find_psw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LoginActivity.this, FindPswActivity.class);
+                Intent intent=new Intent(LoginActivity.this, FindPswCheckActivity.class);
                 startActivityForResult(intent, 1);
             }
         });
@@ -122,16 +122,16 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "登录成功，UID：" + response, Toast.LENGTH_SHORT).show();
 
                                 //登录成功后关闭此页面进入主页
-                                Intent data=new Intent();
+                                Intent data=new Intent(LoginActivity.this, MainActivity.class);
                                 //datad.putExtra( ); Phone , value ;
                                 data.putExtra("UID",response);
                                 //RESULT_OK为Activity系统常量，状态码为-1
                                 // 表示此页面下的内容操作成功将data返回到上一页面，如果是用back返回过去的则不存在用setResult传递data值
                                 setResult(RESULT_OK,data);
+                                //跳转到主界面，登录成功的状态传递到 MainActivity 中
+                                startActivity(data);
                                 //销毁登录界面
                                 LoginActivity.this.finish();
-                                //跳转到主界面，登录成功的状态传递到 MainActivity 中
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             }
                             super.onPostExecute(response);
                         }

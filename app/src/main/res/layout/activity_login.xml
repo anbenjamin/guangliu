@@ -24,52 +24,56 @@
         android:layout_marginTop="35dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/colorlogin"
         android:drawablePadding="10dp"
         android:paddingLeft="8dp"
+        android:layout_gravity="center_horizontal"
+        android:drawableStart="@drawable/ic_tel"
         android:gravity="center_vertical"
+        android:theme="@style/MyEditText"
         android:hint="请输入手机号"
         android:singleLine="true"
-        android:textColor="#000000"
-        android:textColorHint="#a3a3a3"
+        android:textColor="@color/white"
+        android:textColorHint="#cccbcb"
         android:textSize="14sp"/>
+
     <!--输入框-->
     <EditText
         android:id="@+id/et_psw"
         android:layout_width="fill_parent"
         android:layout_height="48dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
-        android:background="@color/colorlogin"
         android:drawablePadding="10dp"
         android:paddingLeft="8dp"
         android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_password"
+        android:theme="@style/MyEditText"
         android:hint="请输入密码"
         android:inputType="textPassword"
         android:singleLine="true"
-        android:textColor="#000000"
-        android:textColorHint="#a3a3a3"
+        android:textColor="@color/white"
+        android:textColorHint="#cccbcb"
         android:textSize="14sp"/>
     <!--按钮-->
     <Button
         android:id="@+id/btn_login"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/background"
-        android:text="登 录"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"/>
+        android:background="@drawable/border_line_while"
+        android:text="登录"
+        android:textColor="@color/white"
+        android:textSize="20sp"/>
     <!--显示tv register , find_psw -->
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="8dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:gravity="center_horizontal"
@@ -79,21 +83,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
             android:padding="8dp"
             android:text="立即注册"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:textColor="@color/white"
+            android:textSize="15sp" />
         <!--layout_weight="1" layout_width="0dp"实现均分效果-->
         <TextView
             android:id="@+id/tv_find_psw"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
+            android:gravity="end"
             android:padding="8dp"
             android:text="找回密码?"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:textColor="@color/white"
+            android:textSize="15sp" />
     </LinearLayout>
+
 </LinearLayout>
