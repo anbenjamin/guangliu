@@ -71,7 +71,11 @@
             android:value="b8a857ed4b2e8e02a69e1d7f045a243e" />
 
         <activity android:name=".FindPswCheckActivity" />
-        <activity android:name=".FindPswResetActivity"></activity>
+        <activity android:name=".FindPswResetActivity" />
+        <activity android:name=".settingPages.ContactSettingActivity" />
+        <activity android:name=".settingPages.PrivacySettingActivity" />
+        <activity android:name=".settingPages.QuestionSettingActivity" />
+        <activity android:name=".settingPages.UseSettingActivity"></activity>
     </application>
 
 </manifest>
