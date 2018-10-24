@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Test2</string>
-    <string name="setting_privacy_head"><b>隐私条款</b></string>
-    <string name="setting_privacy_content">
+    <string name="setting_privacy_head" translatable="false"><b>隐私条款</b></string>
+    <string name="setting_privacy_content" translatable="false">
         \n\t本应用尊重并保护所有使用服务用户的个人隐私权。为了给您提供更准确、更有个性化的服务，本应用会按照本隐私权政策的规定使用和披露您的个人信息。但本应用将以高度的勤勉、审慎义务对待这些信息。除本隐私权政策另有规定外，在未征得您事先许可的情况下，本应用不会将这些信息对外披露或向第三方提供。本应用会不时更新本隐私权政策。 您在同意本应用服务使用协议之时，即视为您已经同意本隐私权政策全部内容。本隐私权政策属于本应用服务使用协议不可分割的一部分。
         \n<b>一.适用范围</b>
         \n\t1. 在您浏览使用本应用时，本应用自动接收并记录您的信息，包括但不限于您使用频次、偏好、使用的语言、访问日期和时间等数据；
@@ -27,8 +27,8 @@
         \n\t2. 在使用本应用网络服务进行网上交易时，您不可避免的要向交易对方或潜在的交易对方披露自己的个人信息，如联络方式或者邮政地址。请您妥善保护自己的个人信息，仅在必要的情形下向他人提供。如您发现自己的个人信息泄密，尤其是本应用用户名及密码发生泄露，请您立即联络本应用客服，以便本应用采取相应措施。
     </string>
 
-    <string name="setting_use_head"><b>使用条款</b></string>
-    <string name="setting_use_content">
+    <string name="setting_use_head" translatable="false"><b>使用条款</b></string>
+    <string name="setting_use_content" translatable="false">
         \n<b>1.接受条款</b>
         \n\t惜时手机应用（以下简称“本APP”）根据以下服务条款为您提供服务。这些条款可由我方随时更新，且毋须另行通知。小目标小行动使用协议（以下简称“使用协议”）一旦发生变动，将在本APP上公布修改内容或内容链接。修改后的使用协议一旦公布，即有效代替原来的使用协议。您在使用本APP提供的各项服务之前，应仔细阅读本使用协议。如您不同意本使用协议及/或随时对其的修改，请您立即停止使用我方所提供的全部服务；您一旦使用本服务，即视为您已了解并完全同意本使用协议各项内容，包括我方对使用协议随时所做的任何修改，并成为本APP用户（以下简称“用户”）。
         \n<b>2.遵守法律</b>
@@ -131,8 +131,8 @@
         \n\t 6）我方对本使用协议享有最终解释权。
     </string>
 
-    <string name="setting_question_head"><b>常见问题</b></string>
-    <string name="setting_question_content">
+    <string name="setting_question_head" translatable="false"><b>常见问题</b></string>
+    <string name="setting_question_content" translatable="false">
         \n<b>一、下载</b>
         \n\n 1.如何下载APP
         \n a.请您登录官网http://123.207.36.58，点击产品下载菜单可下载最新安卓版本
