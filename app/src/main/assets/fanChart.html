@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>扇形图</title>
+</head>
+<style type="text/css">
+body {
+	text-align: center;
+}
+</style>
+
+<body>
+<canvas id="fanChart" width="380px"></canvas>
+<script type="text/javascript">
+		/**
+		 * val_arr,json数组，各项数据，例：[10, 25, 60, 5]
+		 * text_arr，json数组，各项名称，例：["微信", "支付宝", "百度", "爱奇艺"]
+		 * title(可选参数),字符串,图表标题，例："今天各APP使用时长"
+		 * unit(可选参数),字符串，图表单位，例："min"
+		 * color_arr，数组（可选参数），各项在扇形图中的颜色
+		 */
+		function drawFanChart(val_arr, text_arr, title, unit, color_arr) {
+			val_arr = JSON.parse(val_arr);
+			text_arr = JSON.parse(text_arr);
+			var len = val_arr.length, sum = val_arr.reduce(function(pre, cur) {
+				return pre + cur;
+			}, 0);
+			var maxTextLength = text_arr.reduce(function(pre, cur, i) {
+				return Math.max(pre, (cur + val_arr[i]).length);
+			}, (text_arr[0] + val_arr[0]).length) + 1;
+			var data_arr = [];
+			for ( var i = 0; i < len; i++) {
+				data_arr.push(val_arr[i] / sum);
+			}
+
+			if (!color_arr) {
+				color_arr = [];
+				var diff = Math.floor((16777216 - 5000) / (len + 1));
+				for ( var i = 1; i <= len; i++) {
+					color_arr.push("#" + (i * diff).toString(16));
+				}
+			}
+
+			var c = document.getElementById("fanChart");
+
+			var ctx = c.getContext("2d"); //图画绘制对象
+
+			var pwidth = 20, pheight = 10; //图例宽高
+
+			var posX = c.width - 10 - maxTextLength * 8 - pwidth - 5, posY = 30; //图例开始位置
+
+			var textX = posX + pwidth + 5, textY = posY + 8; //文字开始位置
+
+			var radius = (posX - 40) / 2; //半径
+
+			var ox = radius + 20, oy = radius + 30; //圆心
+
+			c.height = len * 15 > radius * 2 ? len * 15 + 60 : radius * 2 + 60;
+
+			//弧度
+			var startAngle = 0; //开始
+
+			var endAngle = 0; //结束
+
+			for ( var i = 0; i < len; i++) {
+
+				endAngle = endAngle + data_arr[i] * Math.PI * 2;
+
+				ctx.fillStyle = color_arr[i];
+
+				ctx.beginPath();
+
+				ctx.moveTo(ox, oy);
+
+				ctx.arc(ox, oy, radius, startAngle, endAngle, false);
+
+				ctx.closePath();
+
+				ctx.fill();
+
+				startAngle = endAngle;
+
+				//绘制图例
+
+				ctx.fillStyle = color_arr[i];
+
+				ctx.fillRect(posX, posY + 15 * i, pwidth, pheight);
+
+				//绘制文字
+
+				ctx.fillStyle = color_arr[i];
+				ctx.font = "8px bold";
+
+				var percent = text_arr[i] + ":" + val_arr[i];
+
+				ctx.fillText(percent, textX, textY + 15 * i);
+
+			}
+
+			if (title) {
+				ctx.fillStyle = "#333333";
+				ctx.font = "10px bold";
+				ctx.fillText(title, (posX - title.length * 10) / 2, 15);
+			}
+			if (unit) {
+				ctx.fillStyle = "#333333";
+				ctx.font = "8px bold";
+				ctx.fillText("单位：" + unit, c.width - unit.length * 8 - 34, 15);
+			}
+		}
+	</script>
+</body>
+
+</html>

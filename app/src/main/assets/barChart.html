@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <style>
+			body {
+				text-align: center;
+			}
+		</style>
+</head>
+
+<body>
+<canvas id="barChart" width="400"></canvas>
+<script>
+			/**
+			 * val_arr,json数组，各项数据，例：[10, 25, 60, 5]
+			 * text_arr，json数组，各项名称，例：["微信", "支付宝", "百度", "爱奇艺"]
+			 * title(可选参数),字符串,图表标题，例："今天各APP使用时长"
+			 * unit(可选参数),字符串，图表单位，例："min"
+			 */
+			function drawBarChart(val_arr, text_arr, title, unit) {
+				val_arr = JSON.parse(val_arr);
+				text_arr = JSON.parse(text_arr);
+				var len = val_arr.length;
+				var beginSpace = 20;
+				var color = "#2dc9d7";
+				var maxVal = val_arr.reduce(function(pre, cur) {
+						return Math.max(pre, cur);
+					}, val_arr[0]),
+					maxTextLength = text_arr.reduce(function(pre, cur) {
+						return pre.length > cur.length ? pre : cur;
+					}, text_arr[0]).length;
+				var c = document.getElementById("barChart");
+				var width = 20,
+					betweenSpace = 10,
+					space = (c.width - betweenSpace * 2 - width * len) / (len + 1);
+				var topSpace = 45,
+					bottomSpace = 10;
+				c.height = 10 * maxTextLength + maxVal + topSpace + bottomSpace;
+
+				var ctx = c.getContext("2d");
+
+				//画线
+				ctx.moveTo(betweenSpace, maxVal + topSpace);
+				ctx.lineTo(c.width - betweenSpace, maxVal + topSpace);
+				ctx.lineWidth = 0.5;
+				ctx.strokeStyle = "#000000";
+				ctx.stroke();
+
+				//矩形开始水平位置
+				var posX = betweenSpace + space;
+
+				for(var i = 0; i < len; i++) {
+					//绘制数据
+					ctx.fillStyle = "#2dc9d7";
+					ctx.font = "10px bold";
+					ctx.fillText(val_arr[i], posX + i * (width + space) + 3, maxVal + topSpace - 5 - val_arr[i]);
+
+					//绘制文字
+					ctx.font = "8px bold";
+					for(var j = 0; j < text_arr[i].length; j++) {
+						ctx.fillText(text_arr[i].charAt(j), posX + i * (width + space) + 5, maxVal + topSpace + 15 + j * 10);
+					}
+
+					//绘制矩形
+					ctx.fillStyle = color;
+					ctx.fillRect(posX + i * (width + space), maxVal + topSpace - val_arr[i], width, val_arr[i]);
+
+				}
+
+				if(title) {
+					ctx.fillStyle = "#333333";
+					ctx.font = "10px bold";
+					ctx.fillText(title, (c.width - title.length * 10) / 2, 15);
+				}
+				if(unit) {
+					ctx.fillStyle = "#333333";
+					ctx.font = "8px bold";
+					ctx.fillText("单位：" + unit, c.width - unit.length * 8 - 34, 15);
+				}
+			}
+		</script>
+</body>
+
+</html>

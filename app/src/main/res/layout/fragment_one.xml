@@ -163,11 +163,11 @@
                 android:layout_height="35dp"
                 android:background="@drawable/main6_background_3"/>
         </LinearLayout>
-        <ImageView
-            android:id="@+id/main7"
+        <WebView
+            android:id="@+id/wv_fanChart"
+            android:background="@drawable/background"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@drawable/main7"/>
+            android:layout_height="150dp"/>
         <ImageButton
             android:id="@+id/main8"
             android:layout_width="match_parent"

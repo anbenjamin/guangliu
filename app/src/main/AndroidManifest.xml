@@ -75,7 +75,7 @@
         <activity android:name=".settingPages.ContactSettingActivity" />
         <activity android:name=".settingPages.PrivacySettingActivity" />
         <activity android:name=".settingPages.QuestionSettingActivity" />
-        <activity android:name=".settingPages.UseSettingActivity"></activity>
+        <activity android:name=".settingPages.UseSettingActivity" />
     </application>
 
 </manifest>
