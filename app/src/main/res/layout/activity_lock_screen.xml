@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LockR"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/lockback"
+    >
+    <include layout="@layout/top2"/>
+    <TextView
+        android:id="@+id/Lock"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:textSize="30sp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="点击解锁"/>
+    <TextView
+        android:id="@+id/Lock2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_marginBottom="50dp"
+        android:layout_centerVertical="true"
+        android:text="一天是一年的缩影"/>
+
+
+</LinearLayout>

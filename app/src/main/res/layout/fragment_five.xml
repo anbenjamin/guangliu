@@ -1,358 +1,189 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:orientation="vertical">
+    android:background="@mipmap/bakeground"
+    xmlns:circleSeekBar="http://schemas.android.com/apk/res-auto"
+    tools:context=".FiveFragment">
 
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/scrollView"
-        android:layout_width="fill_parent"
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我的主页"
+        android:textSize="30dp"
+        android:textColor="#48BCC0"
+        android:background="#00000000"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#f7f7fa"
+        android:textSize="25dp"
+        android:layout_gravity="center"
+        android:text="设置目标"/>
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
+
+        <myControls.CircleSeekBar
+            android:id="@+id/progress2"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:layout_centerInParent="true"
+            circleSeekBar:mode="stroke"
+            circleSeekBar:progressWidth="15dp"
+            circleSeekBar:sProgressWidth="20dp"
+            circleSeekBar:startAngle="-90"
+            circleSeekBar:textSize="15sp"
+            circleSeekBar:velocity="6"  />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spareTime"
+            android:layout_centerInParent="true"
+            android:textSize="35dp"
+            android:textColor="#ffffff"
+            android:text="10 / 20"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginTop="170dp"
+            android:textColor="#ffffff"
+            android:layout_centerHorizontal="true"
+            android:text="今日剩余分钟"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginTop="70dp"
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#33ffffff"/>
+
+    <RelativeLayout
+        android:id="@+id/limitedTime"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="   每日额度" />
+
+        <TextView
+            android:id="@+id/open1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="28dp"
+            android:text="关"
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#33ffffff"/>
+
+    <RelativeLayout
+        android:id="@+id/seniorSetting"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="   高级提醒" />
+
+        <TextView
+            android:id="@+id/rate_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="28dp"
+            android:text=">"
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#33ffffff"/>
+
+    <RelativeLayout
+        android:id="@+id/changePassword"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="   修改密码" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="28dp"
+            android:text=">"
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/line4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#33ffffff"/>
+
+    <RelativeLayout
+        android:id="@+id/cancelLand"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/text1"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:background="#33ffffff"
-                android:gravity="center_vertical"
-                android:text="   监测"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-            <RelativeLayout
-                android:id="@+id/setting1"
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="   注销" />
+    </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:text="位置服务" />
+    <TextView
+        android:id="@+id/line5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#33ffffff"/>
 
-
-                <Switch
-                    android:id="@+id/setting_checkbox1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:thumb="@drawable/switch_thumb"
-                    android:track="@drawable/switch_track"
-                    android:layout_marginEnd="28dp" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/line1"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#33ffffff"/>
-
-            <RelativeLayout
-                android:id="@+id/setting2"
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:text="记录使用时间" />
-
-                <Switch
-                    android:id="@+id/setting_checkbox2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:track="@drawable/switch_track"
-                    android:thumb="@drawable/switch_thumb"
-                    android:layout_marginEnd="28dp" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/line2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#33ffffff"/>
-
-            <RelativeLayout
-                android:id="@+id/setting3"
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:text="记录特定时间" />
-
-                <Switch
-                    android:id="@+id/setting_checkbox3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:track="@drawable/switch_track"
-                    android:thumb="@drawable/switch_thumb"
-                    android:layout_marginEnd="28dp" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/text2"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center_vertical"
-                android:background="#33ffffff"
-                android:text="   数据"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/data_button1"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/background"
-                android:gravity="center_vertical"
-                style="?android:attr/borderlessButtonStyle"
-                android:text="   导出数据"
-                android:textSize="15sp"
-                android:textColor="@color/white"/>
-
-            <TextView
-                android:id="@+id/line3"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#33ffffff"/>
-
-            <Button
-                android:id="@+id/data_button2"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/background"
-                android:gravity="center_vertical"
-                style="?android:attr/borderlessButtonStyle"
-                android:text="   备份和恢复"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/text3"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="center_vertical"
-                android:background="#33ffffff"
-                android:text="   反馈"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/feedback_button1"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/background"
-                android:gravity="center_vertical"
-                style="?android:attr/borderlessButtonStyle"
-                android:text="   发送反馈信息"
-                android:textSize="15sp"
-                android:textColor="@color/white"/>
-
-            <TextView
-                android:id="@+id/line4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#33ffffff"/>
-
-            <Button
-                android:id="@+id/feedback_button2"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/background"
-                android:gravity="center_vertical"
-                style="?android:attr/borderlessButtonStyle"
-                android:text="   求打分求鼓励！"
-                android:textSize="15sp"
-                android:textColor="@color/white"/>
-
-            <TextView
-                android:id="@+id/text4"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="#33ffffff"
-                android:gravity="center_vertical"
-                android:text="   查看使用情况"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-
-            <RelativeLayout
-                android:id="@+id/setting4"
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:text="   通知频率" />
-
-                <TextView
-                    android:id="@+id/rate_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="28dp"
-                    android:text="每天"
-                    android:textSize="15sp"
-                    android:textColor="@color/white"/>
-            </RelativeLayout>
-
-
-            <TextView
-                android:id="@+id/text5"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="#33ffffff"
-                android:gravity="center_vertical"
-                android:text="   技术支持"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/support_button1"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/background"
-                android:gravity="center_vertical"
-                style="?android:attr/borderlessButtonStyle"
-                android:text="   恢复购买"
-                android:textSize="15sp"
-                android:textColor="@color/white"/>
-
-            <TextView
-                android:id="@+id/line5"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#33ffffff"/>
-
-            <Button
-                android:id="@+id/support_button2"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/background"
-                android:gravity="center_vertical"
-                style="?android:attr/borderlessButtonStyle"
-                android:text="   常见问题"
-                android:textSize="15sp"
-                android:textColor="@color/white"/>
-
-            <TextView
-                android:id="@+id/line6"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#33ffffff"/>
-
-            <Button
-                android:id="@+id/support_button3"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/background"
-                android:gravity="center_vertical"
-                style="?android:attr/borderlessButtonStyle"
-                android:text="   隐私条款"
-                android:textSize="15sp"
-                android:textColor="@color/white"/>
-
-            <TextView
-                android:id="@+id/line7"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#33ffffff"/>
-
-            <Button
-                android:id="@+id/support_button4"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/background"
-                android:gravity="center_vertical"
-                style="?android:attr/borderlessButtonStyle"
-                android:text="   使用条款"
-                android:textSize="15sp"
-                android:textColor="@color/white"/>
-
-            <TextView
-                android:id="@+id/line8"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#33ffffff"/>
-
-            <RelativeLayout
-                android:id="@+id/setting5"
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:text="   版本" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="28dp"
-                    android:text="v1.2.0"
-                    android:textSize="15sp"
-                    android:textColor="@color/white"/>
-
-
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/line9"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#33ffffff"/>
-
-            <Button
-                android:id="@+id/support_button6"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/background"
-                android:gravity="center_vertical"
-                android:text="   联系我们"
-                style="?android:attr/borderlessButtonStyle"
-                android:textSize="15sp"
-                android:textColor="@color/white"/>
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>

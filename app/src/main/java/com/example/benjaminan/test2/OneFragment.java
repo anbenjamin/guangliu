@@ -3,20 +3,19 @@ package com.example.benjaminan.test2;
 /**
  * Created by BenjaminAn on 2018/9/26.
  */
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v7.widget.Toolbar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
@@ -27,6 +26,8 @@ public class OneFragment extends Fragment {
     public OneFragment() {
         // Required empty public constructor
     }
+
+    private ImageButton anti;
 
 
     @Override
@@ -78,6 +79,15 @@ public class OneFragment extends Fragment {
         //wv_fanChart.getBackground().setAlpha(0); // 设置填充透明度 范围：0-255
         wv_fanChart.loadUrl("file:///android_asset/barChart.html");
         // "#2dc9d7"
+
+        anti = view.findViewById(R.id.main8);
+        anti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity().getApplicationContext(), AntiAddictionActivity.class));
+            }
+        });
+
 
         return view;
     }

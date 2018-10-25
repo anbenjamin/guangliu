@@ -39,9 +39,9 @@ public class LoginActivity extends AppCompatActivity {
     //获取界面控件
     private void init() {
         //从main_title_bar中获取的id
-        tv_main_title=findViewById(R.id.tv_main_title);
-        tv_main_title.setText("登录");
-        tv_back=findViewById(R.id.tv_back);
+        //tv_main_title=findViewById(R.id.tv_main_title);
+        //tv_main_title.setText("登录");
+        //tv_back=findViewById(R.id.tv_back);
         //从activity_login.xml中获取的
         tv_register=findViewById(R.id.tv_register);
         tv_find_psw=findViewById(R.id.tv_find_psw);
@@ -49,13 +49,13 @@ public class LoginActivity extends AppCompatActivity {
         et_user_phone=findViewById(R.id.et_user_phone);
         et_psw=findViewById(R.id.et_psw);
         //返回键的点击事件
-        tv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //tv_back.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
                 //登录界面销毁
-                LoginActivity.this.finish();
-            }
-        });
+        //       LoginActivity.this.finish();
+        //   }
+        //});
         //立即注册控件的点击事件
         tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         protected void onPostExecute(String response) {
                             if(response.equals("nosuchuser")){
-                                Toast.makeText(LoginActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "用6户不存在", Toast.LENGTH_SHORT).show();
                                 return;
                             }else if(response.equals("passworderror")){
                                 Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();

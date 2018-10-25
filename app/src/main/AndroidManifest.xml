@@ -23,13 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".FindPswActivity" />
         <activity android:name=".SeniorWarningActivity" />
@@ -76,6 +70,15 @@
         <activity android:name=".settingPages.PrivacySettingActivity" />
         <activity android:name=".settingPages.QuestionSettingActivity" />
         <activity android:name=".settingPages.UseSettingActivity" />
+        <activity android:name=".LockScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AntiAddictionActivity" />
+        <activity android:name=".LimitedScreenActivity"></activity>
     </application>
 
 </manifest>
