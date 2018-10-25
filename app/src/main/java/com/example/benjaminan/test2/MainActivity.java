@@ -1,5 +1,6 @@
 package com.example.benjaminan.test2;
 
+import android.content.Intent;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -17,7 +18,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.benjaminan.test2.settingPages.ContactSettingActivity;
+import com.example.benjaminan.test2.settingPages.PrivacySettingActivity;
+import com.example.benjaminan.test2.settingPages.UseSettingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +91,135 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 arg0 ==1的时辰默示正在滑动，
                 arg0==2的时辰默示滑动完毕了，
                 arg0==0的时辰默示什么都没做。*/
+            }
+        });
+
+        Switch switch1 = findViewById(R.id.setting_checkbox1);
+        Switch switch2 = findViewById(R.id.setting_checkbox2);
+        Switch switch3 = findViewById(R.id.setting_checkbox3);
+        Button data_button1 = findViewById(R.id.data_button1);
+        Button data_button2 = findViewById(R.id.data_button2);
+        Button support_button1 = findViewById(R.id.support_button1);
+        Button support_button2 = findViewById(R.id.support_button2);
+        Button support_button3 = findViewById(R.id.support_button3);
+        Button support_button4 = findViewById(R.id.support_button4);
+        Button support_button6 = findViewById(R.id.support_button6);
+        RelativeLayout layout = findViewById(R.id.setting5);
+        Button feedback_button1 = findViewById(R.id.feedback_button1);
+        Button feedback_button2 = findViewById(R.id.feedback_button2);
+        switch1.setChecked(true);
+        switch2.setChecked(true);
+        switch3.setChecked(false);
+
+        /**
+         * 已经实现的功能
+         */
+
+        /**
+         * 隐私条款
+         */
+        support_button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PrivacySettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        /**
+         * 用户条款
+         */
+        support_button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UseSettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        /**
+         * 联系我们
+         */
+        support_button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ContactSettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        /**
+         * 未上线功能
+         */
+
+        /**
+         * 导出数据
+         */
+        data_button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "功能还未上线", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /**
+         * 备份和恢复
+         */
+        data_button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "功能还未上线", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /**
+         * 发送反馈信息
+         */
+        feedback_button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "功能还未上线", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /**
+         * 求打分求分享
+         */
+        feedback_button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "功能还未上线", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /**
+         * 恢复购买
+         */
+        support_button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "功能还未上线", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /**
+         * 常见问题
+         */
+        support_button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "功能还未上线", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /**
+         * 版本
+         */
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "已经是最新版本", Toast.LENGTH_SHORT).show();
             }
         });
     }
