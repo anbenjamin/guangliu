@@ -24,9 +24,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.benjaminan.test2.EventBus.EventUtil;
+import com.example.benjaminan.test2.Services.MyService2;
 import com.example.benjaminan.test2.settingPages.ContactSettingActivity;
 import com.example.benjaminan.test2.settingPages.PrivacySettingActivity;
 import com.example.benjaminan.test2.settingPages.UseSettingActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Fragment> mFragmentList = new ArrayList<Fragment>();
     private FragmentAdapter mFragmentAdapter;
     private DrawerLayout mDrawerLayout;
+    private String UID;
 
 //    String[] titles = new String[]{"微信", "通讯录", "发现", "我"};
 
@@ -52,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         //去除工具栏
         //getSupportActionBar().hide();
+        UID = getIntent().getStringExtra("UID");
+
+        Toast.makeText(MainActivity.this, "已將UID：" + UID + "傳入屏幕監聽服務", Toast.LENGTH_SHORT).show();
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -222,6 +230,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this, "已经是最新版本", Toast.LENGTH_SHORT).show();
             }
         });
+
+        Intent screenListener = new Intent(MainActivity.this, MyService2.class);
+        screenListener.putExtra("UID",UID);
+        startService(screenListener);
     }
 
     /**

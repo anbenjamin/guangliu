@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".FindPswActivity" />
         <activity android:name=".SeniorWarningActivity" />
@@ -78,7 +78,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".AntiAddictionActivity" />
-        <activity android:name=".LimitedScreenActivity"></activity>
+        <activity android:name=".LimitedScreenActivity" />
+
+        <service
+            android:name=".Services.MyService2"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

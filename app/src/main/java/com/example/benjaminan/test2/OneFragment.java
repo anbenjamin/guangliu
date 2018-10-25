@@ -4,24 +4,39 @@ package com.example.benjaminan.test2;
  * Created by BenjaminAn on 2018/9/26.
  */
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.benjaminan.test2.EventBus.EventUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import Http.HttpUtlis;
 import butterknife.ButterKnife;
 
 public class OneFragment extends Fragment {
 
+    private int usingTime[] = {0,0,0,0,0,0,0,0};
+    private String UID;
+    private WebView wv_fanChart;
+    private  int i;
 
     public OneFragment() {
         // Required empty public constructor
@@ -35,7 +50,9 @@ public class OneFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         ButterKnife.bind(this, view);
 
-                /*------------------TextView utility_time（今日使用时长数据）------------------*/
+        EventBus.getDefault().register(this);
+
+        /*------------------TextView utility_time（今日使用时长数据）------------------*/
         TextView utility_time = (TextView) view.findViewById(R.id.utility_time);
         utility_time.setText("13M");
         /*----------------------------------------------------------------------------*/
@@ -47,7 +64,7 @@ public class OneFragment extends Fragment {
 
         /*----------------TextView main5_background_32（查看间隔数据）----------------*/
         TextView main5_background_32 = (TextView) view.findViewById(R.id.main5_background_32);
-        main5_background_32.setText("7m");
+        main5_background_32.setText("6m");
         /*---------------------------------------------------------------------------*/
 
         /*----------------TextView main5_background_52（单次最长数据）----------------*/
@@ -63,23 +80,6 @@ public class OneFragment extends Fragment {
         main6_background_2.setText(simpleDateFormat.format(date));
         /*----------------------------------------------------------------------------*/
 
-        WebView wv_fanChart = (WebView) view.findViewById(R.id.wv_fanChart);
-        wv_fanChart.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                view.loadUrl("javascript:drawBarChart('[45, 23, 23, 10, 25, 60, 5, 30, 12]','[\"0點\", \"3點\", \"6點\", \"9點\", \"12點\", \"15點\", \"18點\", \"21點\", \"24點\"]')");
-            }
-        });
-        WebSettings settings = wv_fanChart.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setJavaScriptCanOpenWindowsAutomatically(true);
-        wv_fanChart.setBackgroundColor(0);
-        //wv_fanChart.setBackgroundColor(0); // 设置背景色
-        //wv_fanChart.getBackground().setAlpha(0); // 设置填充透明度 范围：0-255
-        wv_fanChart.loadUrl("file:///android_asset/barChart.html");
-        // "#2dc9d7"
-
         anti = view.findViewById(R.id.main8);
         anti.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,9 +88,101 @@ public class OneFragment extends Fragment {
             }
         });
 
+        wv_fanChart = (WebView) view.findViewById(R.id.wv_fanChart);
+        WebSettings settings = wv_fanChart.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
+        wv_fanChart.setBackgroundColor(0);
+        //wv_fanChart.setBackgroundColor(0); // 设置背景色
+        //wv_fanChart.getBackground().setAlpha(0); // 设置填充透明度 范围：0-255
+        wv_fanChart.loadUrl("file:///android_asset/barChart.html");
+        // "#2dc9d7"
+        wv_fanChart.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                view.loadUrl("javascript:drawBarChart('[0, 0, 0, 0, 0, 0, 0, 0, 0]','[\"0點\", \"3點\", \"6點\", \"9點\", \"12點\", \"15點\", \"18點\", \"21點\", \"24點\"]')");
+            }
+        });
 
         return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public  void onEvent(EventUtil event){
+        UID = event.getMsg();
+        for(i = 0; i < 8; ++i)
+            setWebView();
+    }
+
+
+    private void setWebView() {
+        if(i >= 8)
+            return;
+        String url1 = "http://123.207.36.58/searchUsing.php?type=time&date=";
+        String url2 = "&start_time=";
+        String url3 = "&end_time=";
+        String url4 = "&UID=" + UID;
+        long currentTime = System.currentTimeMillis();
+        Date start = new Date(currentTime);
+        SimpleDateFormat fYear = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat fTime = new SimpleDateFormat("HHmmss");
+        start.setSeconds(0);
+        start.setMinutes(0);
+        start.setHours(i * 3);
+        String url = url1 + fYear.format(start) + url2 + fTime.format(start);
+        if (start.getHours() == 21) {
+            start.setSeconds(59);
+            start.setMinutes(59);
+            start.setHours(23);
+        }
+        else
+            start.setHours(start.getHours() + 3);
+        url += (url3 + fTime.format(start) + url4);
+        String temp[] = {url,String.valueOf(i)};
+        new AsyncTask<String, Float, String>() {
+            private int i;
+            @Override
+            protected String doInBackground(String... params) {
+                i = Integer.parseInt(params[1]);
+                Log.e("time",String.valueOf(i));
+                HttpUtlis http = new HttpUtlis();
+                return http.getRequest(params[0], "utf-8");
+            }
+
+            @Override
+            protected void onPostExecute(String response) {
+                if(i >= 8)
+                    return;
+                if(isInteger(response))
+                    usingTime[i] = Integer.parseInt(response);
+                else
+                    return;
+                wv_fanChart.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public void onPageFinished(WebView view, String url) {
+                        super.onPageFinished(view, url);
+                        view.loadUrl("javascript:drawBarChart('[" + String.valueOf(usingTime[0])+ ", " + String.valueOf(usingTime[1])+ ", "
+                                                                    + String.valueOf(usingTime[2])+ ", " + String.valueOf(usingTime[3])+ ", "
+                                                                    + String.valueOf(usingTime[4])+ ", " + String.valueOf(usingTime[5])+ ", "
+                                                                    + String.valueOf(usingTime[6])+ ", " + String.valueOf(usingTime[7])
+                                                                    + "]','[\"3點\", \"6點\", \"9點\", \"12點\", \"15點\", \"18點\", \"21點\", \"24點\"]')");
+                    }
+                });
+                super.onPostExecute(response);
+            }
+        }.execute(temp);
+    }
+
+    private static boolean isInteger(String str) {
+        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+        return pattern.matcher(str).matches();
+    }
 }
 

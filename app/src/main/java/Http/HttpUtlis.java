@@ -40,8 +40,9 @@ public class HttpUtlis {
                 }
             }
         } catch (Exception error) {
-            error.printStackTrace();
+            //error.printStackTrace();
             //callback.event("netfail");
+            Log.e(TAG,error.toString());
             return  "netfail";
         }
         return "netfail";

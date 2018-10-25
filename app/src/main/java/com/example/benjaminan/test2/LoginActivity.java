@@ -90,10 +90,10 @@ public class LoginActivity extends AppCompatActivity {
                     // md5Psw.equals(); 判断，输入的密码加密后，是否与保存在SharedPreferences中一致
                 }else {
                     String md5Psw= MD5.md5(psw);
-                    Map<String,String> map=new HashMap<>();
-                    map.put("http://123.207.36.58/login.php","?");
-                    map.put("phone",userPhone);
-                    map.put("password",md5Psw);
+                    //Map<String,String> map=new HashMap<>();
+                    //map.put("http://123.207.36.58/login.php","?");
+                    //map.put("phone",userPhone);
+                    //map.put("password",md5Psw);
 
                     String url = "http://123.207.36.58/login.php?phone=" + userPhone + "&password=" + md5Psw;
 
