@@ -4,7 +4,6 @@ package com.example.benjaminan.test2;
  * Created by BenjaminAn on 2018/9/26.
  */
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,22 +20,22 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.benjaminan.test2.EventBus.EventUtil;
+import com.example.benjaminan.test2.EventBus.EventUID;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import Http.HttpUtlis;
 import butterknife.ButterKnife;
 
 public class OneFragment extends Fragment {
 
-    private int usingTime[] = {0,0,0,0,0,0,0,0};
+    private int usingTime[] = {0,0,0,0,0,0,0,1};
     private String UID;
     private WebView wv_fanChart;
-    private  int i;
+    TextView utility_time, main5_background_12, main5_background_52;
 
     public OneFragment() {
         // Required empty public constructor
@@ -50,25 +49,26 @@ public class OneFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         ButterKnife.bind(this, view);
 
+        //注冊EventBus
         EventBus.getDefault().register(this);
 
         /*------------------TextView utility_time（今日使用时长数据）------------------*/
-        TextView utility_time = (TextView) view.findViewById(R.id.utility_time);
-        utility_time.setText("13M");
+        utility_time = (TextView) view.findViewById(R.id.utility_time);
+        utility_time.setText("0M");
         /*----------------------------------------------------------------------------*/
 
         /*----------------TextView main5_background_12（查看次数数据）----------------*/
-        TextView main5_background_12 = (TextView) view.findViewById(R.id.main5_background_12);
+        main5_background_12 = (TextView) view.findViewById(R.id.main5_background_12);
         main5_background_12.setText("5");
         /*---------------------------------------------------------------------------*/
 
         /*----------------TextView main5_background_32（查看间隔数据）----------------*/
         TextView main5_background_32 = (TextView) view.findViewById(R.id.main5_background_32);
-        main5_background_32.setText("6m");
+        main5_background_32.setText("6min");
         /*---------------------------------------------------------------------------*/
 
         /*----------------TextView main5_background_52（单次最长数据）----------------*/
-        TextView main5_background_52 = (TextView) view.findViewById(R.id.main5_background_52);
+        main5_background_52 = (TextView) view.findViewById(R.id.main5_background_52);
         main5_background_52.setText("41m");
         /*---------------------------------------------------------------------------*/
 
@@ -115,17 +115,14 @@ public class OneFragment extends Fragment {
     }
 
     @Subscribe
-    public  void onEvent(EventUtil event){
+    public void onEventMainThread(EventUID event){
         UID = event.getMsg();
-        for(i = 0; i < 8; ++i)
-            setWebView();
+        initData();
+        setWebView();
     }
 
-
     private void setWebView() {
-        if(i >= 8)
-            return;
-        String url1 = "http://123.207.36.58/searchUsing.php?type=time&date=";
+        String url1 = "http://123.207.36.58/searchUsing.php?type=counter&date=";
         String url2 = "&start_time=";
         String url3 = "&end_time=";
         String url4 = "&UID=" + UID;
@@ -135,8 +132,8 @@ public class OneFragment extends Fragment {
         SimpleDateFormat fTime = new SimpleDateFormat("HHmmss");
         start.setSeconds(0);
         start.setMinutes(0);
-        start.setHours(i * 3);
-        String url = url1 + fYear.format(start) + url2 + fTime.format(start);
+        //start.setHours(i * 3);
+        String url = url1 + fYear.format(start) ;//+ url2 + fTime.format(start);
         if (start.getHours() == 21) {
             start.setSeconds(59);
             start.setMinutes(59);
@@ -144,40 +141,110 @@ public class OneFragment extends Fragment {
         }
         else
             start.setHours(start.getHours() + 3);
-        url += (url3 + fTime.format(start) + url4);
-        String temp[] = {url,String.valueOf(i)};
+        url +=  url4;// + url3 + fTime.format(start);
         new AsyncTask<String, Float, String>() {
-            private int i;
             @Override
             protected String doInBackground(String... params) {
-                i = Integer.parseInt(params[1]);
-                Log.e("time",String.valueOf(i));
                 HttpUtlis http = new HttpUtlis();
-                return http.getRequest(params[0], "utf-8");
+                String temp = http.getRequest(params[0], "utf-8");
+                return temp;
             }
 
             @Override
             protected void onPostExecute(String response) {
-                if(i >= 8)
-                    return;
-                if(isInteger(response))
-                    usingTime[i] = Integer.parseInt(response);
-                else
-                    return;
+                String[] aa = response.split("\\.");
+                for(int i = 0; i < 8; ++i)
+                    usingTime[i] = Integer.valueOf(aa[i]);
                 wv_fanChart.setWebViewClient(new WebViewClient() {
                     @Override
                     public void onPageFinished(WebView view, String url) {
                         super.onPageFinished(view, url);
-                        view.loadUrl("javascript:drawBarChart('[" + String.valueOf(usingTime[0])+ ", " + String.valueOf(usingTime[1])+ ", "
-                                                                    + String.valueOf(usingTime[2])+ ", " + String.valueOf(usingTime[3])+ ", "
-                                                                    + String.valueOf(usingTime[4])+ ", " + String.valueOf(usingTime[5])+ ", "
-                                                                    + String.valueOf(usingTime[6])+ ", " + String.valueOf(usingTime[7])
-                                                                    + "]','[\"3點\", \"6點\", \"9點\", \"12點\", \"15點\", \"18點\", \"21點\", \"24點\"]')");
+                        String temp1 = "javascript:drawBarChart('[" + String.valueOf(usingTime[0])+ ", " + String.valueOf(usingTime[1])+ ", "
+                                + String.valueOf(usingTime[2])+ ", " + String.valueOf(usingTime[3])+ ", "
+                                + String.valueOf(usingTime[4])+ ", " + String.valueOf(usingTime[5])+ ", "
+                                + String.valueOf(usingTime[6])+ ", " + String.valueOf(usingTime[7])
+                                + "]','[\"3點\", \"6點\", \"9點\", \"12點\", \"15點\", \"18點\", \"21點\", \"24點\"]')";
+                        Log.e("count1",temp1);
+                        System.out.print(usingTime[5]);
+                        view.loadUrl(temp1);
                     }
                 });
                 super.onPostExecute(response);
             }
-        }.execute(temp);
+        }.execute(url);
+    }
+
+    private void initData(){
+        long currentTime = System.currentTimeMillis();
+        Date start = new Date(currentTime);
+        SimpleDateFormat fTime = new SimpleDateFormat("HHmmss");
+        SimpleDateFormat fYear = new SimpleDateFormat("yyyy-MM-dd");
+        String url0 = "http://123.207.36.58/searchUsing.php?type=time&date=";
+        String url10 = "http://123.207.36.58/searchUsing.php?type=getMax&date=";
+        String url1 = "http://123.207.36.58/searchUsing.php?type=counter&date=";
+        String url2 = "&start_time=";
+        String url3 = "&end_time=";
+        String url4 = "&UID=" + UID;
+
+
+        String url = url0 + fYear.format(start) + url2 + "000000" + url3 + "235959" + url4;
+        new AsyncTask<String, Float, String>() {
+            @Override
+            protected String doInBackground(String... params) {
+                HttpUtlis http = new HttpUtlis();
+                String temp = http.getRequest(params[0], "utf-8");
+                Log.e("getAllUsing",temp);
+                int min = Integer.valueOf(temp);
+                if(min%60 != 0)
+                    min = min/60 + 1;
+                else
+                    min /= 60;
+                return String.valueOf(min);
+            }
+            @Override
+            protected void onPostExecute(String response) {
+                main5_background_12.setText(response);
+                super.onPostExecute(response);
+            }
+        }.execute(url);
+
+        url = url1 + fYear.format(start) + url2 + "000000" + url3 + "235959" + url4;
+        new AsyncTask<String, Float, String>() {
+            @Override
+            protected String doInBackground(String... params) {
+                HttpUtlis http = new HttpUtlis();
+                String temp = http.getRequest(params[0], "utf-8");
+                Log.e("getAllCounter",temp);
+                return temp;
+            }
+            @Override
+            protected void onPostExecute(String response) {
+                utility_time.setText(response + "m");
+                super.onPostExecute(response);
+            }
+        }.execute(url);
+
+        url = url10 + fYear.format(start) + url2 + "000000" + url3 + "235959" + url4;
+        new AsyncTask<String, Float, String>() {
+            @Override
+            protected String doInBackground(String... params) {
+                HttpUtlis http = new HttpUtlis();
+                String temp = http.getRequest(params[0], "utf-8");
+                Log.e("getMaxTime",temp);
+                int min = Integer.valueOf(temp);
+                if(min%60 != 0)
+                    min = min/60 + 1;
+                else
+                    min /= 60;
+                return String.valueOf(min);
+            }
+            @Override
+            protected void onPostExecute(String response) {
+                Log.e("getMaxTime",response);
+                main5_background_52.setText(response + "min");
+                super.onPostExecute(response);
+            }
+        }.execute(url);
     }
 
     private static boolean isInteger(String str) {

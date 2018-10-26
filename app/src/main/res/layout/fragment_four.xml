@@ -4,10 +4,41 @@
     android:layout_height="match_parent"
     tools:context=".FourFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="日程界面"
-        android:textSize="25sp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
+        <LinearLayout
+            android:id="@+id/scheduletitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50">
+            <Button
+                android:id="@+id/add"
+                android:layout_width="50dp"
+                android:layout_height="@dimen/dp_50"
+                android:background="@drawable/add"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="日程详情"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:textSize="25sp" />
+            <Button
+                android:id="@+id/look"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="wrap_content"
+                android:background="@drawable/look"/>
+        </LinearLayout>
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/scheduletitle">
+        </ListView>
+
+    </RelativeLayout>
 </FrameLayout>

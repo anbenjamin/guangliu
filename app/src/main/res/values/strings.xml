@@ -1,5 +1,34 @@
 <resources>
-    <string name="app_name" translatable="false">Test2</string>
+    <string name="app_name" translatable="false">防沉迷时间管理</string>
+    <string name="title_section1" translatable="false">日程</string>
+    <string name="title_section2" translatable="false">详情</string>
+    <string name="title_section3" translatable="false">我的</string>
+    <string name="action_settings" translatable="false">设置</string>
+    <string name="action_search" translatable="false">搜索</string>
+    <string name="action_new" translatable="false">新建</string>
+    <string name="action_refresh" translatable="false">刷新</string>
+    <string name="action_edit" translatable="false">编辑</string>
+    <string name="action_reset" translatable="false">清除</string>
+    <string name="action_ok" translatable="false">完成</string>
+    <string name="action_login" translatable="false">登录</string>
+    <string name="action_logout" translatable="false">退出系统</string>
+    <string name="button_ok" translatable="false">确定</string>
+    <string name="menu_help" translatable="false">帮助</string>
+    <string name="menu_history" translatable="false">历史</string>
+    <string name="menu_settings" translatable="false">设置</string>
+    <string name="wifi_changing_network" translatable="false">请求连接到网络\u2026</string>
+    <string name="title_ex_edit1" translatable="false">基本信息</string>
+    <string name="title_ex_edit2" translatable="false">扩展信息</string>
+    <string name="schedule_title" translatable="false">请输入日程标题</string>
+    <string name="schedule_content" translatable="false">请输入日程内容</string>
+    <string name="isSignificance" translatable="false">重要</string>
+    <string name="isEmergency" translatable="false">紧急</string>
+    <string name="submit" translatable="false">提交</string>
+    <string name="reset" translatable="false">取消</string>
+    <string name="query" translatable="false">查询</string>
+    <string name="title_activity_schedule_query" translatable="false">ScheduleQueryActivity</string>
+    <string name="title_activity_schedule_edit" translatable="false">ScheduleEditActivity</string>
+    <string name="title_activity_schedule_list" translatable="false">ScheduleListActivity</string>
     <string name="setting_privacy_head" translatable="false"><b>隐私条款</b></string>
     <string name="setting_privacy_content" translatable="false">
         \n\t本应用尊重并保护所有使用服务用户的个人隐私权。为了给您提供更准确、更有个性化的服务，本应用会按照本隐私权政策的规定使用和披露您的个人信息。但本应用将以高度的勤勉、审慎义务对待这些信息。除本隐私权政策另有规定外，在未征得您事先许可的情况下，本应用不会将这些信息对外披露或向第三方提供。本应用会不时更新本隐私权政策。 您在同意本应用服务使用协议之时，即视为您已经同意本隐私权政策全部内容。本隐私权政策属于本应用服务使用协议不可分割的一部分。
@@ -159,5 +188,6 @@
         \n\na.如果你仍然没有找到您问题的答案，请发邮件至1368936399@qq.com咨询。
         \n
     </string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

@@ -13,6 +13,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import butterknife.ButterKnife;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import details.DetailInfo;
 import details.DetailInfoAdapter;
+
+import static android.media.CamcorderProfile.get;
 
 public class TwoFragment extends Fragment {
     @BindView(R.id.detail_recycler_view)
@@ -78,31 +81,59 @@ public class TwoFragment extends Fragment {
     }
 
     void initDetails(){
-        Calendar calendar = Calendar.getInstance();
-        Context context = getActivity().getApplicationContext();
-        PackageManager pm = context.getPackageManager();
-        for( int i = 0 ; i < 5 ; i++){
-            DetailInfo temp = new DetailInfo();
-            calendar.add(Calendar.DATE,-1);
-            temp.setCalendar(calendar);
-            detailList.add(temp);
-        }
+        Calendar calendar1 = Calendar.getInstance();
+        //Context context = getActivity().getApplicationContext();
+        //PackageManager pm = context.getPackageManager();
+        detailList.add(new DetailInfo(calendar1));
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.add(Calendar.DATE, -1);
+        detailList.add(new DetailInfo(calendar2));
+
+        Calendar calendar3 = Calendar.getInstance();
+        calendar3.add(Calendar.DATE, -2);
+        detailList.add(new DetailInfo(calendar3));
+
+        Calendar calendar4 = Calendar.getInstance();
+        calendar4.add(Calendar.DATE, -3);
+        detailList.add(new DetailInfo(calendar4));
+
+        Calendar calendar5 = Calendar.getInstance();
+        calendar5.add(Calendar.DATE, -4);
+        detailList.add(new DetailInfo(calendar5));
+
+        for( int i = 0 ; i < 5 ; i++)
+            Log.e("day & i",String.valueOf(detailList.get(i).getCalendar().get(Calendar.DAY_OF_MONTH)) + ":" + String .valueOf(i));
     }
 
     private void refreshDetails(){
         boolean flag = false;
+
         detailList.clear();
-        Calendar calendar = Calendar.getInstance();
         Context context = getActivity().getApplicationContext();
         PackageManager pm = context.getPackageManager();
-        for( int i = 0 ; i < 5 ; i++){
-            DetailInfo temp = new DetailInfo();
-            calendar.add(Calendar.DATE,-1);
-            temp.setCalendar(calendar);
-            detailList.add(temp);
 
-            flag = true;
-        }
+        Calendar calendar1 = Calendar.getInstance();
+        detailList.add(new DetailInfo(calendar1));
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.add(Calendar.DATE, -1);
+        detailList.add(new DetailInfo(calendar2));
+
+        Calendar calendar3 = Calendar.getInstance();
+        calendar3.add(Calendar.DATE, -2);
+        detailList.add(new DetailInfo(calendar3));
+
+        Calendar calendar4 = Calendar.getInstance();
+        calendar4.add(Calendar.DATE, -3);
+        detailList.add(new DetailInfo(calendar4));
+
+        Calendar calendar5 = Calendar.getInstance();
+        calendar5.add(Calendar.DATE, -4);
+        detailList.add(new DetailInfo(calendar5));
+
+        flag = true;
+
         if(flag)
             mAdapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);

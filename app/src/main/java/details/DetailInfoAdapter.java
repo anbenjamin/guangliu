@@ -74,9 +74,9 @@ public class DetailInfoAdapter extends RecyclerView.Adapter<DetailInfoAdapter.Vi
         holder.detailWeek.setText(getWeekFromCalendar(detail.getCalendar()));
         holder.detailDate.setText(getDateFromCalendar(detail.getCalendar()));
         //Glide.with(mContext).load(app.getIcon()).into(holder.appIcon);
-        holder.detailIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_null));
-        holder.statistic1.setText("statistic1");
-        holder.statistic2.setText("statistic2");
+        holder.detailIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.history));
+        holder.statistic1.setText("APP使用記錄");
+        holder.statistic2.setText("查看列表");
     }
 
     @Override

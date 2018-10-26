@@ -84,6 +84,16 @@
             android:name=".Services.MyService2"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name=".addScheduleActivity" />
+        <activity android:name=".lookScheduleActivity" />
+        <activity android:name=".updateScheduleActivity" />
+        <activity android:name=".showScheduleActivity" />
+        <activity android:name=".showDetailActivity" />
+        <activity android:name=".threeDownActivity" />
+        <activity android:name=".threeDownWeekActivity" />
+        <activity android:name=".threeDownMonthActivity" />
+        <activity android:name=".threeDownAllActivity"></activity>
     </application>
 
 </manifest>

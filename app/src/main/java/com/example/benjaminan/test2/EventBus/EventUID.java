@@ -4,10 +4,10 @@ package com.example.benjaminan.test2.EventBus;
  * Created by BenjaminAn on 2018/10/26.
  */
 
-public class EventUtil {
+public class EventUID {
     private String msg;
 
-    public EventUtil(String msg) {
+    public EventUID(String msg) {
         this.msg = msg;
     }
 

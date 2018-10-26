@@ -22,6 +22,7 @@ public class DetailInfo {
         this.calendar = calendar;
         this.AppList = appList;
     }
+    public DetailInfo(Calendar calendar){this.calendar = calendar;}
     public void setCalendar(Calendar calendar){this.calendar = calendar;}
     public void setAppList(List<AppInfo> appList){this.AppList = appList;}
     public void setIcon(Drawable icon){this.icon = icon;}

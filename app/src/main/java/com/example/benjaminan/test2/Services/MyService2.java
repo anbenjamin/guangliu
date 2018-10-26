@@ -15,9 +15,9 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.benjaminan.test2.EventBus.EventUtil;
+import com.example.benjaminan.test2.EventBus.EventUID;
+import com.example.benjaminan.test2.EventBus.EventUsing;
 import com.example.benjaminan.test2.LockScreenActivity;
-import com.example.benjaminan.test2.MainActivity;
 import com.example.benjaminan.test2.R;
 
 import org.greenrobot.eventbus.EventBus;
@@ -58,7 +58,6 @@ public class MyService2 extends Service {
                 .setContentIntent(pi)
                 .build();
         startForeground(2, notification);
-        EventBus.getDefault().post(new EventUtil(UID));
     }
 
     private String UID;
@@ -68,7 +67,8 @@ public class MyService2 extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         UID = intent.getStringExtra("UID");
-        EventBus.getDefault().post(new EventUtil(UID));
+        EventBus.getDefault().postSticky(new EventUID(UID));
+        //EventBus.getDefault().post(new EventUID(UID));
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -91,6 +91,7 @@ public class MyService2 extends Service {
                             String onTime = fTime.format(on);
                             Long between = (off.getTime() - on.getTime() ) / 1000;
                             String second = between.toString();
+                            EventBus.getDefault().post(new EventUsing( Integer.parseInt(second)));
                             url = "http://123.207.36.58/insertUsing.php?UID=" + UID + "&AID=0" + "&date=" + year + "&start_time=" + onTime + "&end_time=" + offTime + "&appname=none&apptime=none&keyword=using_time&value=" + second;
                             new AsyncTask<String, Float, String>(){
                                 @Override
@@ -99,14 +100,6 @@ public class MyService2 extends Service {
                                     return http.getRequest(params[0],"utf-8");
                                 }
                             }.execute(url);
-                            //HttpUtlis http = new HttpUtlis();
-                            //response = http.getRequest(url, "utf-8");
-                            Handler handler2=new Handler(Looper.getMainLooper());  // 这里是得到主界面程序的Looper
-                            handler2.post(new Runnable(){
-                                public void run(){
-                                    Toast.makeText(getApplicationContext(), response + " : " + url, Toast.LENGTH_LONG).show();
-                                }
-                            });
                         }
                     }
 //123.207.36.58/insertUsing.php?UID=1009171740&AID=0&date=2018-10-23&start_time=202000&end_time=203000&appname=none&apptimr=none&keyword=using_time&value=10

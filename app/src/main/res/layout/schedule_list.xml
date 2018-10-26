@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <CheckBox
+        android:id="@+id/is_Important"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:padding="@dimen/dp_10"
+        android:text="@string/isSignificance"
+        android:focusable="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_normal" />
+
+    <CheckBox
+        android:id="@+id/is_urgent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:focusable="false"
+        android:padding="@dimen/dp_10"
+        android:text="@string/isEmergency"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_normal"
+        android:layout_toRightOf="@+id/is_Important" />
+
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/dp_10"
+        android:text="title"
+        android:textSize="@dimen/text_size_normal"
+        android:textColor="@color/white"
+        android:layout_marginLeft="@dimen/dp_50"
+        android:layout_toRightOf="@+id/is_urgent" />
+</RelativeLayout>
