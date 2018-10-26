@@ -59,7 +59,7 @@ public class OneFragment extends Fragment {
 
         /*----------------TextView main5_background_12（查看次数数据）----------------*/
         main5_background_12 = (TextView) view.findViewById(R.id.main5_background_12);
-        main5_background_12.setText("5");
+        main5_background_12.setText("0");
         /*---------------------------------------------------------------------------*/
 
         /*----------------TextView main5_background_32（查看间隔数据）----------------*/
@@ -69,7 +69,7 @@ public class OneFragment extends Fragment {
 
         /*----------------TextView main5_background_52（单次最长数据）----------------*/
         main5_background_52 = (TextView) view.findViewById(R.id.main5_background_52);
-        main5_background_52.setText("41m");
+        main5_background_52.setText("0m");
         /*---------------------------------------------------------------------------*/
 
         /*-----------------TextView main6_background_2（显示当前日期）-----------------*/

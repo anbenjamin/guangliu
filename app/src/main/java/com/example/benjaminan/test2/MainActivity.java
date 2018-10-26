@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //getSupportActionBar().hide();
         UID = getIntent().getStringExtra("UID");
 
-        Toast.makeText(MainActivity.this, "已將UID：" + UID + "傳入屏幕監聽服務", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, "已將UID：" + UID + "傳入屏幕監聽服務", Toast.LENGTH_SHORT).show();
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null)
         {
+            actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.title_background_1);
         }

@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.benjaminan.test2.EventBus.EventUID;
 import com.example.benjaminan.test2.EventBus.EventUsing;
+import com.example.benjaminan.test2.Services.MyService2;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -44,7 +45,7 @@ public class FiveFragment extends Fragment {
 
     private CircleSeekBar mCircleProgress1;
     private CircleSeekBar mCircleProgress2;
-    public TextView spareTime;
+    public TextView spareTime, cancleLand;
     public TextView open1;  //设置额度后面的开关控制
     public RelativeLayout seniorSetting;
     private int mSeletedIndex;  //从numberpicker即时间额度中选择的值确定后传给这个变量
@@ -79,13 +80,23 @@ public class FiveFragment extends Fragment {
         seniorSetting = view.findViewById(R.id.seniorSetting);
         open1 = view.findViewById(R.id.open1);
         layout1 = view.findViewById(R.id.limitedTime);
-
+        cancleLand = view.findViewById(R.id.cancelLand);
         //initCircle();
 
         seniorSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SeniorWarningActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cancleLand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent serviceIntent = new Intent(getActivity(), MyService2.class);
+                getActivity().stopService(serviceIntent);
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
             }
         });

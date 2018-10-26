@@ -99,4 +99,15 @@
             android:textSize="15sp" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:text="©光流网络科技有限公司 * 软件3组"
+        android:gravity="center"
+        android:textColor="@color/whitesmoke"/>
+
 </LinearLayout>
