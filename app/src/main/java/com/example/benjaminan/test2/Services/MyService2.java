@@ -51,7 +51,7 @@ public class MyService2 extends Service {
         PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
         Notification notification = new NotificationCompat.Builder(this)
                 .setContentTitle("防沉迷时间管理系统")
-                .setContentText("惩罚模式")
+                .setContentText("監聽使用行爲中")
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
@@ -66,6 +66,7 @@ public class MyService2 extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.e("MyService2", "start");
         UID = intent.getStringExtra("UID");
         EventBus.getDefault().postSticky(new EventUID(UID));
         //EventBus.getDefault().post(new EventUID(UID));
@@ -89,10 +90,24 @@ public class MyService2 extends Service {
                             String year = fYear.format(off);
                             String offTime = fTime.format(off);
                             String onTime = fTime.format(on);
+                            String seperate = getSeperate(on, off);
                             Long between = (off.getTime() - on.getTime() ) / 1000;
                             String second = between.toString();
                             EventBus.getDefault().post(new EventUsing( Integer.parseInt(second)));
-                            url = "http://123.207.36.58/insertUsing.php?UID=" + UID + "&AID=0" + "&date=" + year + "&start_time=" + onTime + "&end_time=" + offTime + "&appname=none&apptime=none&keyword=using_time&value=" + second;
+                            if(seperate.equals("666"))
+                                url = "http://123.207.36.58/insertUsing.php?UID=" + UID
+                                        + "&AID=0" + "&date=" + year
+                                        + "&start_time=" + onTime + "&end_time=" + offTime
+                                        + "&appname=none&apptime=none&keyword=using_time&value=" + second
+                                        + "&statistic_time=" + seperate
+                                        + "&value1=" + "&value2=";
+                            else
+                                url = "http://123.207.36.58/insertUsing.php?UID=" + UID
+                                        + "&AID=0" + "&date=" + year
+                                        + "&start_time=" + onTime + "&end_time=" + offTime
+                                        + "&appname=none&apptime=none&keyword=using_time&value=" + second
+                                        + "&statistic_time=" + seperate
+                                        + "&value1=" + getSecond(onTime,seperate) + "&value2=" + getSecond(seperate,offTime);
                             new AsyncTask<String, Float, String>(){
                                 @Override
                                 protected String doInBackground(String... params) {
@@ -124,6 +139,36 @@ public class MyService2 extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.d("MyService", "onDestroy executed");
+    }
+
+    String getSeperate(Date start, Date end){
+        String seperete = new String("666");
+        SimpleDateFormat start_hour = new SimpleDateFormat("HH");
+        SimpleDateFormat end_hour = new SimpleDateFormat("HH");
+        int sHour = Integer.parseInt(start_hour.format(start));
+        int eHour = Integer.parseInt(end_hour.format(end));
+
+        for(int i = 1; i < 8; ++i){
+            if(sHour < i && eHour > i){
+                if(i <= 3)
+                    response = "0" + String .valueOf(i) + "0000";
+                else
+                    response = String .valueOf(i) + "0000";
+                break;
+            }
+        }
+
+        return seperete;
+    }
+
+    String getSecond(String start,String end){
+        int temp = Integer.parseInt(end.substring(0,2)) - Integer.parseInt(start.substring(0,2));
+        int second = temp * 3600;
+        temp = Integer.parseInt(end.substring(2,4)) - Integer.parseInt(start.substring(2,4));
+        second += temp * 60;
+        temp = Integer.parseInt(end.substring(4)) - Integer.parseInt(start.substring(4));
+        second += temp;
+        return String.valueOf(second);
     }
 
 }

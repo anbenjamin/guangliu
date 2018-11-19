@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import com.example.benjaminan.test2.AntiAddiction.ActivityCollector;
 import com.example.benjaminan.test2.AntiAddiction.BaseActivity;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,10 @@ public class LimitedScreenActivity extends BaseActivity {
     public static final String TAG = "Lancher";
     private TextView GuangLT1;
     private TextView GuangLT2;
+
+    public static final int DISABLE_EXPAND = 0x00010000;//4.2以上的整形标识
+    public static final int DISABLE_EXPAND_LOW = 0x00000001;//4.2以下的整形标识
+    public static final int DISABLE_NONE = 0x00000000;//取消StatusBar所有disable属性，即还原到最最原始状态
 
     // static SharedPreferences pref;
     // static SharedPreferences.Editor editor;
@@ -47,7 +53,7 @@ public class LimitedScreenActivity extends BaseActivity {
         //editor=getSharedPreferences("data",MODE_PRIVATE).edit();
         //pref=getSharedPreferences("data",MODE_MULTI_PROCESS);
 
-
+        banStatusBar();
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
@@ -191,5 +197,42 @@ public class LimitedScreenActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
 
+    }
+
+    private void unBanStatusBar() {//利用反射解除状态栏禁止下拉
+        Object service = getSystemService("statusbar");
+        Log.e("unBanStatusBar", service.toString());
+        try {
+            Class<?> statusBarManager = Class.forName
+                    ("android.app.StatusBarManager");
+            Method expand = statusBarManager.getMethod("disable", int.class);
+            expand.invoke(service, DISABLE_NONE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setStatusBarDisable(int disable_status) {//调用statusBar的disable方法
+        Object service = getSystemService("statusbar");
+        Log.e("setStatusBarDisable", service.toString());
+        try {
+            Class<?> statusBarManager = Class.forName
+                    ("android.app.StatusBarManager");
+            Method expand = statusBarManager.getMethod("disable", int.class);
+            expand.invoke(service, disable_status);
+        } catch (Exception e) {
+            unBanStatusBar();
+            e.printStackTrace();
+        }
+    }
+
+    private void banStatusBar() {//禁止statusbar下拉，适配了高低版本
+        int currentApiVersion = android.os.Build.VERSION.SDK_INT;
+        Log.e("banStatusBar", String.valueOf(currentApiVersion));
+        if (currentApiVersion <= 16) {
+            setStatusBarDisable(DISABLE_EXPAND_LOW);
+        } else {
+            setStatusBarDisable(DISABLE_EXPAND);
+        }
     }
 }

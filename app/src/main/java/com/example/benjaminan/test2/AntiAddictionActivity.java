@@ -66,7 +66,7 @@ public class AntiAddictionActivity extends BaseActivity implements View.OnClickL
                 else{
                     locktime=Integer.parseInt(lockTime.getText().toString());
                     if(locktime==0){
-                        Toast.makeText(AntiAddictionActivity.this, "re", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AntiAddictionActivity.this, "請輸入有效數字", Toast.LENGTH_SHORT).show();
                     }
                     else{
                         startT=System.currentTimeMillis();
@@ -106,7 +106,7 @@ public class AntiAddictionActivity extends BaseActivity implements View.OnClickL
                     locktime=Integer.parseInt(lockTime.getText().toString());
                     if(locktime==0){
 
-                        Toast.makeText(AntiAddictionActivity.this, "re", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AntiAddictionActivity.this, "請輸入有效數字", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         startT=System.currentTimeMillis();

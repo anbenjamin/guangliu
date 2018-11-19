@@ -178,6 +178,16 @@ public class FiveFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {// 不在最前端界面显示
+
+        } else {// 重新显示到最前端
+
+        }
+    }
+
     @Subscribe(sticky = true)
     public void onEventMainThread(EventUID event){
         UID = event.getMsg();

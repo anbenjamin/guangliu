@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import android.view.animation.Animation;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -36,6 +37,7 @@ public class OneFragment extends Fragment {
     private String UID;
     private WebView wv_fanChart;
     TextView utility_time, main5_background_12, main5_background_52;
+    private boolean isGetData = false;
 
     public OneFragment() {
         // Required empty public constructor
@@ -109,6 +111,16 @@ public class OneFragment extends Fragment {
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {// 不在最前端界面显示
+
+        } else {// 重新显示到最前端
+            //Log.e("onHiddenChanged",UID );
+       }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
@@ -118,6 +130,7 @@ public class OneFragment extends Fragment {
     public void onEventMainThread(EventUID event){
         UID = event.getMsg();
         initData();
+        Log.e("1", UID );
         setWebView();
     }
 
@@ -147,6 +160,7 @@ public class OneFragment extends Fragment {
             protected String doInBackground(String... params) {
                 HttpUtlis http = new HttpUtlis();
                 String temp = http.getRequest(params[0], "utf-8");
+                Log.e("getCounter",temp);
                 return temp;
             }
 
@@ -203,7 +217,7 @@ public class OneFragment extends Fragment {
             }
             @Override
             protected void onPostExecute(String response) {
-                main5_background_12.setText(response);
+                utility_time.setText(response + "min");
                 super.onPostExecute(response);
             }
         }.execute(url);
@@ -219,7 +233,7 @@ public class OneFragment extends Fragment {
             }
             @Override
             protected void onPostExecute(String response) {
-                utility_time.setText(response + "m");
+                main5_background_12.setText(response);
                 super.onPostExecute(response);
             }
         }.execute(url);
@@ -245,6 +259,41 @@ public class OneFragment extends Fragment {
                 super.onPostExecute(response);
             }
         }.execute(url);
+    }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) { //   进入当前Fragment
+        if (enter && !isGetData) {
+            isGetData = true;
+            //   这里可以做网络请求或者需要的数据刷新操作
+            if(UID != null){
+
+                Log.e("2", UID );
+                initData();
+                setWebView();
+            }
+        } else {
+            isGetData = false;
+        }
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        isGetData = false;
+    }
+
+    @Override
+    public void onResume() {
+        if (!isGetData) { //   这里可以做网络请求或者需要的数据刷新操作
+            if(UID != null){
+                initData();
+                Log.e("3", UID );
+                setWebView();
+            }
+            isGetData = true;
+        }
+        super.onResume();
     }
 
     private static boolean isInteger(String str) {

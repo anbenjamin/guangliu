@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.benjaminan.test2.LimitedScreenActivity;
 import com.example.benjaminan.test2.MainActivity;
 
 public class HomeReceiver extends BroadcastReceiver {
@@ -29,7 +30,7 @@ public class HomeReceiver extends BroadcastReceiver {
                 if (reason.equals(SYSTEM_DIALOG_REASON_HOME_KEY)) {
                     Log.d("ddd","按了home");
                     for(int j=0;j<10;j++){
-                        Intent intent=new Intent(arg0,MainActivity.class);
+                        Intent intent=new Intent(arg0,LimitedScreenActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         PendingIntent pendingIntent =
                                 PendingIntent.getActivity(arg0, 0, intent, 0);
@@ -43,7 +44,7 @@ public class HomeReceiver extends BroadcastReceiver {
                 }
                 else  if (reason.equals(SYSTEM_DIALOG_REASON_RECENT_APPS)) {
                     Log.d("ddd","按了多任务键");
-                    Intent intent2=new Intent(arg0,MainActivity.class);
+                    Intent intent2=new Intent(arg0,LimitedScreenActivity.class);
                     arg0.startActivity(intent2);
                 }
             }

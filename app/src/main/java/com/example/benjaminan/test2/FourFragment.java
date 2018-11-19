@@ -89,6 +89,17 @@ public class FourFragment extends Fragment {
         add.setOnClickListener(new AddSchedule());
         look.setOnClickListener(new LookSchedule());
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {// 不在最前端界面显示
+
+        } else {// 重新显示到最前端
+
+        }
+    }
+
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) { //   进入当前Fragment
         if (enter && !isGetData) { isGetData = true;
@@ -97,17 +108,22 @@ public class FourFragment extends Fragment {
         } else { isGetData = false;
         } return super.onCreateAnimation(transit, enter, nextAnim);
     }
+
     @Override
     public void onPause() {
         super.onPause();
         isGetData = false;
     }
+
     @Override
-    public void onResume() { if (!isGetData) { //   这里可以做网络请求或者需要的数据刷新操作
-        refresh();
-        isGetData = true;
-    } super.onResume();
+    public void onResume() {
+        if (!isGetData) { //   这里可以做网络请求或者需要的数据刷新操作
+            refresh();
+            isGetData = true;
+        }
+        super.onResume();
     }
+
     private void refresh() {
         Button add=(Button)getActivity().findViewById(R.id.add);
         Button look=(Button)getActivity().findViewById(R.id.look);
